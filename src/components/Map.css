@@ -1,0 +1,40 @@
+#map {
+  height: 500px;
+  width: 100%;
+  margin-bottom: 20px;
+  z-index: 1;
+}
+
+.leaflet-container {
+  height: 100%;
+  width: 100%;
+}
+
+.leaflet-marker-icon {
+  width: 25px !important;
+  height: 41px !important;
+}
+
+.leaflet-popup-content {
+  margin: 8px;
+  line-height: 1.4;
+}
+
+.center-popup h3 {
+  margin: 0 0 8px 0;
+  color: #333;
+}
+
+.center-popup p {
+  margin: 4px 0;
+  font-size: 14px;
+}
+
+.center-popup a {
+  color: #0066cc;
+  text-decoration: none;
+}
+
+.center-popup a:hover {
+  text-decoration: underline;
+}
