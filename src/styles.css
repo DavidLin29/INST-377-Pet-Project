@@ -1,3 +1,4 @@
+
 /* General Reset */
 body, h1, h2, h3, h4, p, ul, li {
     margin: 0;
@@ -9,16 +10,16 @@ body, h1, h2, h3, h4, p, ul, li {
   
   /* Body Styling */
   body {
-    background-color: #FFF4B7; /* Soft Yellow Background */
-    color: #000B58; /* Dark Blue Text */
+    background-color: #f5e6d3; 
+    color: #000B58; 
     font-size: 16px;
     line-height: 1.6;
   }
   
   /* Persistent Navigation Bar */
   .navbar {
-    background-color: #003161; /* Medium Blue */
-    color: #FFF4B7; /* Soft Yellow */
+    background-color: #003161; 
+    color: #FFF4B7; 
     padding: 15px 20px;
     display: flex;
     justify-content: space-between;
@@ -34,7 +35,7 @@ body, h1, h2, h3, h4, p, ul, li {
   }
   
   .navbar a:hover {
-    color: #006A67; /* Teal */
+    color: red; 
   }
   
   .navbar .active {
