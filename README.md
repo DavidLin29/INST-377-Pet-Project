@@ -4,7 +4,7 @@
 - **Title**: Pet Haven (Temporary)
 - **Project Description**: Our project goal is to combat the increasing problem of overcrowding in shelters around the United States. To achieve this, we leverage the use of the PetFinder API to obtain information about rescue groups, donation centers, and most importantly, pets. With this API, we created a comprehensive and user-friendly website for users looking to donate to the cause or adopt a pet.
 - **Target Browsers Description**: Our project is best utilized using computers with Google Chrome. However, it will also be available to be used, although not as optimal, through devices with iOS, or Android.
-- [Go to Developer Manual] (#developer-manual)
+- [Go to Developer Manual](#developer-manual)
 
 ---
 
