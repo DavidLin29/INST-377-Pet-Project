@@ -1,5 +1,5 @@
 import React from 'react';
-import { Routes, Route } from 'react-router-dom';
+import { Routes, Route, Navigate } from 'react-router-dom';
 import Navbar from './components/Navbar';
 import Adopt from './components/Adopt';
 import Learn from './components/Learn';
@@ -16,6 +16,7 @@ const App = () => (
       <Route path="/learn" element={<Learn />} />
       <Route path="/help" element={<Help />} />
       <Route path="/about" element={<About />} />
+      <Route path="*" element={<Navigate to="/" />} />
     </Routes>
   </>
 );
