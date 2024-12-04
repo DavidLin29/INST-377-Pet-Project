@@ -8,6 +8,81 @@ const Help = () => {
     question: ''
   });
 
+  const [expandedFaq, setExpandedFaq] = useState(null);
+
+  const faqData = {
+    "General Questions": [
+      {
+        question: "What should I consider before adopting a pet?",
+        answer: "Lifestyle compatibility, space requirements, time commitment, and financial responsibilities."
+      },
+      {
+        question: "How do I know which type of pet is right for me?",
+        answer: "Consider your activity level, living situation, allergies, and experience with pets."
+      },
+      {
+        question: "What are the benefits of adopting rather than buying a pet?",
+        answer: "Saving a life, reducing overpopulation, and often receiving a pet that's already vaccinated and spayed/neutered."
+      }
+    ],
+    "Adoption Process": [
+      {
+        question: "What is the typical adoption process?",
+        answer: "Filling out an application, meeting the pet, a home visit (sometimes), and paying an adoption fee."
+      },
+      {
+        question: "What questions will the shelter or rescue ask me?",
+        answer: "About your lifestyle, home environment, previous pet experience, and how you'll care for the pet."
+      },
+      {
+        question: "What is the adoption fee, and what does it cover?",
+        answer: "Fees vary but often include vaccinations, spaying/neutering, microchipping, and sometimes a starter kit."
+      }
+    ],
+    "Pet Care": [
+      {
+        question: "What kind of care will the pet need?",
+        answer: "Regular veterinary visits, proper nutrition, exercise, grooming, and socialization."
+      },
+      {
+        question: "How do I prepare my home for a new pet?",
+        answer: "Secure unsafe areas, provide appropriate bedding, food/water bowls, toys, and a designated space for the pet."
+      },
+      {
+        question: "What supplies do I need to have before bringing my pet home?",
+        answer: "Food, a leash/harness (for dogs), litter and litter box (for cats), toys, a bed, and grooming tools."
+      }
+    ],
+    "Health and Behavior": [
+      {
+        question: "Will the pet have any health or behavioral issues?",
+        answer: "Shelters often disclose known issues, but ask about the pet's history and temperament."
+      },
+      {
+        question: "What should I do if my adopted pet has trouble adjusting?",
+        answer: "Be patient, give them space, maintain a routine, and consider consulting a trainer or veterinarian."
+      },
+      {
+        question: "How do I introduce the new pet to my other pets?",
+        answer: "Slowly and in neutral territory if possible, while supervising interactions closely."
+      }
+    ],
+    "Post-Adoption": [
+      {
+        question: "Can I return the pet if it doesn't work out?",
+        answer: "Most shelters have a return policy, but it's important to confirm this before adopting."
+      },
+      {
+        question: "What resources are available to help me with training or care?",
+        answer: "Shelters often provide post-adoption support, and there are many local trainers and online resources."
+      },
+      {
+        question: "How long does it take for a pet to adjust to a new home?",
+        answer: "It varies, but generally 3 days to decompress, 3 weeks to learn the routine, and 3 months to fully settle."
+      }
+    ]
+  };
+
   const handleSubmit = (e) => {
     e.preventDefault();
     console.log('Form submitted:', formData);
@@ -49,7 +124,30 @@ const Help = () => {
 
       <section className="faq-section">
         <h2>Frequently Asked Questions</h2>
-        {/* Add FAQ items here */}
+        {Object.entries(faqData).map(([category, questions], categoryIndex) => (
+          <div key={categoryIndex} className="faq-category">
+            <h3>{category}</h3>
+            <div className="faq-questions">
+              {questions.map((item, index) => (
+                <div 
+                  key={index} 
+                  className={`faq-item ${expandedFaq === `${categoryIndex}-${index}` ? 'expanded' : ''}`}
+                >
+                  <div 
+                    className="faq-question"
+                    onClick={() => setExpandedFaq(expandedFaq === `${categoryIndex}-${index}` ? null : `${categoryIndex}-${index}`)}
+                  >
+                    <span>{item.question}</span>
+                    <span className="faq-toggle">{expandedFaq === `${categoryIndex}-${index}` ? '−' : '+'}</span>
+                  </div>
+                  <div className="faq-answer">
+                    <p>{item.answer}</p>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        ))}
       </section>
 
       <section className="contact-section">

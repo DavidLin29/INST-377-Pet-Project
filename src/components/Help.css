@@ -103,6 +103,80 @@ h1, h2 {
   cursor: pointer;
 }
 
+.faq-section {
+  margin: 40px 0;
+}
+
+.faq-category {
+  margin-bottom: 30px;
+}
+
+.faq-category h3 {
+  color: #333;
+  margin-bottom: 20px;
+  text-align: left;
+}
+
+.faq-questions {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.faq-item {
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.faq-question {
+  padding: 15px 20px;
+  background-color: #f8f9fa;
+  cursor: pointer;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-weight: 500;
+  transition: background-color 0.3s ease;
+}
+
+.faq-question:hover {
+  background-color: #f0f0f0;
+}
+
+.faq-toggle {
+  font-size: 20px;
+  color: #666;
+  transition: transform 0.3s ease;
+}
+
+.faq-answer {
+  max-height: 0;
+  opacity: 0;
+  overflow: hidden;
+  transform: translateY(-10px);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  background-color: white;
+  padding: 0 20px;
+}
+
+.faq-item.expanded .faq-answer {
+  max-height: 1000px;
+  opacity: 1;
+  transform: translateY(0);
+  padding: 15px 20px;
+}
+
+.faq-item.expanded .faq-toggle {
+  transform: rotate(180deg);
+}
+
+.faq-answer p {
+  margin: 0;
+  line-height: 1.5;
+  text-align: left;
+}
+
 @media (max-width: 768px) {
   .help-page {
     padding: 20px;
