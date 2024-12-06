@@ -3,9 +3,9 @@
     "version": "1.0.0",
     "private": true,
     "description": "A React app for pet adoption",
-    "homepage": "https://Pedro-Jose-da-Rocha-Mendonca.github.io/pet-haven",
+    "homepage": "/pet-haven",
     "dependencies": {
-        "@supabase/supabase-js": "^2.46.2",
+        "@supabase/supabase-js": "^2.47.1",
         "express": "^4.21.1",
         "leaflet": "^1.9.4",
         "nodemon": "^3.1.7",

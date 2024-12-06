@@ -1,12 +1,18 @@
+// This module handles API interactions with the RescueGroups.org API to fetch adoption center data
+
 export const searchAdoptionCenters = async () => {
   try {
+    // Initialize variables for pagination
     const allCenters = [];
     let currentPage = 1;
     let hasMorePages = true;
 
+    // Continue fetching while there are more pages
     while (hasMorePages) {
+      // API endpoint for organization search
       const endpoint = 'https://api.rescuegroups.org/v5/public/orgs/search';
       
+      // Construct the request payload with search parameters
       const payload = {
         data: {
           type: 'orgs',
@@ -31,6 +37,7 @@ export const searchAdoptionCenters = async () => {
         }
       };
 
+      // Make the API request with appropriate headers
       const response = await fetch(endpoint, {
         method: 'POST',
         headers: {
@@ -41,24 +48,30 @@ export const searchAdoptionCenters = async () => {
         body: JSON.stringify(payload)
       });
 
+      // Error handling for failed requests
       if (!response.ok) {
         const errorText = await response.text();
         throw new Error(`API Error: ${response.status} - ${errorText || response.statusText}`);
       }
 
+      // Parse response data
       const rawText = await response.text();
       const data = JSON.parse(rawText);
 
+      // Validate response format
       if (!data || !data.data) {
         throw new Error('Invalid API response format');
       }
 
+      // Transform and store the center data
       const transformedCenters = transformCenterData(data);
       allCenters.push(...transformedCenters);
 
+      // Check if there are more pages to fetch
       hasMorePages = data.meta && data.meta.totalPages > currentPage;
       currentPage++;
 
+      // Add delay between requests to avoid rate limiting
       await new Promise(resolve => setTimeout(resolve, 100));
     }
 
@@ -73,6 +86,7 @@ export const searchAdoptionCenters = async () => {
   }
 };
 
+// Helper function to transform API response into a more usable format
 const transformCenterData = (data) => {
   if (!data.data || !Array.isArray(data.data)) return [];
 
@@ -94,4 +108,32 @@ const transformCenterData = (data) => {
     },
     citystate: org.attributes.citystate
   }));
+};
+
+export const fetchContactSubmissions = async () => {
+  try {
+    const response = await fetch('/api/contacts');
+    if (!response.ok) throw new Error('Failed to fetch contacts');
+    return await response.json();
+  } catch (error) {
+    console.error('Error:', error);
+    throw error;
+  }
+};
+
+export const submitContactForm = async (formData) => {
+  try {
+    const response = await fetch('/api/contacts', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(formData)
+    });
+    if (!response.ok) throw new Error('Failed to submit form');
+    return await response.json();
+  } catch (error) {
+    console.error('Error:', error);
+    throw error;
+  }
 };
