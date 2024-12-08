@@ -3,7 +3,7 @@
     "version": "1.0.0",
     "private": true,
     "description": "A React app for pet adoption",
-    "homepage": "/pet-haven",
+    "homepage": ".",
     "dependencies": {
         "@supabase/supabase-js": "^2.47.2",
         "express": "^4.21.2",
@@ -45,4 +45,5 @@
             "last 1 safari version"
         ]
     }
+    
 }
