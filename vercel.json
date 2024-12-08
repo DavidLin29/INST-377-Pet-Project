@@ -1,5 +1,9 @@
 {
     "rewrites": [
-      { "source": "/pet-haven/(.*)", "destination": "/pet-haven/index.html" }
+      {
+        "source": "/pet-haven/(.*)",
+        "destination": "/index.html"
+      }
     ]
   }
+  
