@@ -2,17 +2,16 @@ import React, { createContext, useState, useContext, useEffect } from 'react';
 import { createClient } from '@supabase/supabase-js'
 
 
-const supabaseUrl = 'https://hkyyaftinggdrlfqfyfq.supabase.co'; // Replace with your Supabase URL
+const supabaseUrl = 'https://hkyyaftinggdrlfqfyfq.supabase.co'; 
 const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImhreXlhZnRpbmdnZHJsZnFmeWZxIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MzMzNTUyNjEsImV4cCI6MjA0ODkzMTI2MX0.FAe5bopanFvIn6BVUczk2qmt9c0HP_XArYfwCz8V-_A'; // Fix typo in key
 
-const supabase = createClient(supabaseUrl, supabaseKey); // Simplified initialization
+const supabase = createClient(supabaseUrl, supabaseKey); 
 
 const AuthContext = createContext(null);
 
 export const AuthProvider = ({ children }) => {
   const [currentUser, setCurrentUser] = useState(null);
   const [error, setError] = useState(null);
-  // Remove loading state
 
   useEffect(() => {
     let mounted = true;
@@ -33,14 +32,12 @@ export const AuthProvider = ({ children }) => {
       }
     };
 
-    // Initial session check
     supabase.auth.getSession().then(({ data: { session } }) => {
       if (mounted) {
         initializeUser(session);
       }
     });
 
-    // Auth state change listener
     const { data: { subscription } } = supabase.auth.onAuthStateChange((_event, session) => {
       if (mounted) {
         initializeUser(session);
@@ -75,7 +72,6 @@ export const AuthProvider = ({ children }) => {
   
       console.log('After signInWithPassword call');
   
-      // Check and log the data and error returned
       console.log('signInWithPassword data:', data);
       console.log('signInWithPassword error:', error);
   
@@ -89,7 +85,6 @@ export const AuthProvider = ({ children }) => {
         throw new Error('No user data received');
       }
   
-      // Extract user ID from the response
       const userId = data.user.id;
       console.log('User ID:', userId);
   
@@ -127,12 +122,11 @@ export const AuthProvider = ({ children }) => {
         throw new Error('No user data in signup response');
       }
 
-      // Create a new record in the users table with just id and centers
       const { error: insertError } = await supabase
         .from('users')
         .insert([{ 
           id: authData.user.id,
-          centers: [] // Initialize with empty array
+          centers: [] 
         }]);
 
       if (insertError) {
@@ -173,7 +167,6 @@ export const AuthProvider = ({ children }) => {
         ? currentFavorites.filter(fav => fav.id !== center.id)
         : [...currentFavorites, center];
   
-      // Update the database first
       const { error: updateError } = await supabase
         .from('users')
         .update({ centers: newFavorites })
@@ -181,13 +174,12 @@ export const AuthProvider = ({ children }) => {
         
       if (updateError) throw updateError;
   
-      // Only update local state if database update was successful
       setCurrentUser(prev => ({
         ...prev,
         favorites: newFavorites
       }));
 
-      return true; // Simplified return
+      return true; 
     } catch (error) {
       setError('Failed to update favorites');
       console.error('Error in toggleFavorite:', error);
@@ -207,7 +199,6 @@ export const AuthProvider = ({ children }) => {
       console.log('Loaded favorites data:', data);
 
       if (error) {
-        // If user doesn't exist, create the record
         if (error.code === 'PGRST116') {
           const { data: newUser, error: insertError } = await supabase
             .from('users')

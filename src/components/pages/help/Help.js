@@ -2,10 +2,8 @@ import React, { useState } from 'react';
 import './Help.css';
 
 const Help = () => {
-  // Only need FAQ state now
   const [expandedFaq, setExpandedFaq] = useState(null);
 
-  // FAQ data structure organized by categories
   const faqData = {
     "General Questions": [
       {

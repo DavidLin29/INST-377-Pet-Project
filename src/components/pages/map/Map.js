@@ -1,12 +1,9 @@
-// Interactive map component using Leaflet to display adoption centers
-
 import React, { useEffect, useRef, useState } from 'react';
 import L from 'leaflet';
 import { useAuth } from '../../../services/AuthContext';
 import './Map.css';
 import 'leaflet/dist/leaflet.css';
 
-// Configure default marker icons for Leaflet
 delete L.Icon.Default.prototype._getIconUrl;
 L.Icon.Default.mergeOptions({
   iconRetinaUrl: require('leaflet/dist/images/marker-icon-2x.png'),
@@ -21,9 +18,7 @@ const Map = ({ centers, onMarkerClick }) => {
   const markersRef = useRef([]);
   const [isMapReady, setIsMapReady] = useState(false);
 
-  // Initialize map on component mount
   useEffect(() => {
-    // Wait for container to be available
     if (!mapContainerRef.current) return;
 
     const initMap = () => {
@@ -51,9 +46,8 @@ const Map = ({ centers, onMarkerClick }) => {
         setIsMapReady(false);
       }
     };
-  }, []); // Remove mapContainerRef.current from dependencies
+  }, []);
 
-  // Only update markers when map is ready and centers/favorites change
   useEffect(() => {
     if (!mapInstanceRef.current || !isMapReady) return;
 
@@ -98,16 +92,14 @@ const Map = ({ centers, onMarkerClick }) => {
             minWidth: 200
           });
 
-        // Add click handler to the popup
         marker.on('popupopen', () => {
           const favoriteBtn = document.querySelector(`.favorite-btn[data-center-id="${center.id}"]`);
           if (favoriteBtn) {
             favoriteBtn.addEventListener('click', async () => {
               try {
                 const newIsFavorite = !currentUser.favorites.some(fav => fav.id === center.id);
-                await toggleFavorite(center); // Pass the entire center object
+                await toggleFavorite(center);
                 
-                // Update button appearance after successful database update
                 favoriteBtn.innerHTML = newIsFavorite ? '❤️' : '🤍';
                 favoriteBtn.classList.toggle('favorited', newIsFavorite);
               } catch (error) {
@@ -125,7 +117,6 @@ const Map = ({ centers, onMarkerClick }) => {
     }
   }, [centers, currentUser?.favorites, toggleFavorite, currentUser, isMapReady]);
 
-  // Remove global handlers - we don't need them anymore
   useEffect(() => {
     return () => {
       delete window.handleMarkerClick;

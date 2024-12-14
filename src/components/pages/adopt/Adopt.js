@@ -1,17 +1,13 @@
-// Adoption centers map page component with interactive location markers
-
 import React, { useState, useEffect } from 'react';
 import { searchAdoptionCenters } from '../../../services/petApi';
 import Map from '../map/Map';
 import './Adopt.css';
 
 const Adopt = () => {
-  // State management for adoption centers data and loading states
   const [centers, setCenters] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(null);
 
-  // Fetch adoption centers on component mount
   useEffect(() => {
     const fetchCenters = async () => {
       try {

@@ -1,6 +1,5 @@
 import React, { useState, useEffect, useRef } from "react";
 import { useNavigate } from 'react-router-dom';
-import { useAuth } from '../../../services/AuthContext';
 import "./Home.css";
 
 const Home = () => {
@@ -9,8 +8,6 @@ const Home = () => {
   const [activeSlide, setActiveSlide] = useState(0);
   const navigate = useNavigate();
   const sliderRef = useRef(null);
-  // eslint-disable-next-line no-unused-vars
-  const { currentUser } = useAuth();
 
   useEffect(() => {
     const fetchImages = async () => {

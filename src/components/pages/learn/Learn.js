@@ -1,10 +1,7 @@
-// Educational component providing information about pet adoption and care
-
 import React from 'react';
 import './Learn.css';
 
 const Learn = () => {
-  // Component structure divided into educational sections:
   return (
     <div className="learn-page">
       <h1>Learn About Pet Adoption</h1>

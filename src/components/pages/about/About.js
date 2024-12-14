@@ -1,5 +1,3 @@
-// Team information page displaying member profiles and roles
-
 import React from 'react';
 import './About.css';
 

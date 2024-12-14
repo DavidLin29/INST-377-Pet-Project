@@ -1,11 +1,8 @@
-// Navigation component that provides links to different sections of the application
-
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { useAuth } from '../../../services/AuthContext';
 import './Navbar.css';
 
-// Simple navigation bar component with links to main application routes
 const Navbar = () => {
   const { currentUser, signOut } = useAuth();
   return (

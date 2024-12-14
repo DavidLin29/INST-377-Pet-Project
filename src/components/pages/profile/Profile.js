@@ -12,10 +12,8 @@ const Profile = ({ centers = [] }) => {
   const [loading, setLoading] = useState(false);
   const [localError, setLocalError] = useState('');
 
-  // Remove the favoriteCenters useMemo since we now store full center data
   const favoriteCenters = currentUser?.favorites || [];
 
-  // Cleanup effect
   useEffect(() => {
     return () => {
       setLocalError('');
@@ -23,7 +21,6 @@ const Profile = ({ centers = [] }) => {
     };
   }, []);
 
-  // Add useCallback hook for loadUserFavorites
   const loadUserFavorites = React.useCallback(async () => {
     if (loading || !currentUser?.id || currentUser?.favorites) return;
 
@@ -44,7 +41,6 @@ const Profile = ({ centers = [] }) => {
     }
   }, [currentUser?.id, currentUser?.favorites, loading, loadFavorites, setCurrentUser]);
 
-  // Simplify the effect to use the callback
   useEffect(() => {
     loadUserFavorites();
   }, [loadUserFavorites]);
@@ -56,39 +52,31 @@ const Profile = ({ centers = [] }) => {
     
     try {
       if (isSignIn) {
-        console.log('Attempting sign in for:', email);
         const response = await signIn(email, password);
-        console.log('Sign in response received:', response);
         
         if (response?.user) {
-          console.log('Valid user data received, navigating...');
           setEmail('');
           setPassword('');
           navigate('/profile', { replace: true });
         } else {
-          console.log('No user data in response');
           throw new Error('Sign in failed - No user data received');
         }
       } else {
-        console.log('Starting registration process...');
         const response = await register(email, password);
-        console.log('Registration response:', response);
         
         if (response.success) {
           setEmail('');
           setPassword('');
           setIsSignIn(true);
           setLocalError(response.message);
-          console.log('Verification email sent successfully to:', email);
         } else if (response.isExistingUser) {
           setLocalError(response.error);
-          setIsSignIn(true); // Automatically switch to sign in form
+          setIsSignIn(true);
         } else {
           setLocalError(response.error || 'Registration failed - please try again');
         }
       }
     } catch (err) {
-      console.error('Auth error:', err);
       setLocalError(err.message || 'Authentication failed');
     } finally {
       setLoading(false);
@@ -102,23 +90,19 @@ const Profile = ({ centers = [] }) => {
       setCurrentUser(null);
       navigate('/', { replace: true });
     } catch (err) {
-      setLocalError('Failed to sign out'); // Use setLocalError instead of setError
-      console.error('Sign out error:', err);
+      setLocalError('Failed to sign out');
     } finally {
       setLoading(false);
     }
   };
 
   const handleResendVerification = async () => {
-    console.log('Attempting to resend verification email to:', email);
     try {
       setLoading(true);
       const result = await resendVerificationEmail(email);
       setLocalError(result.message);
-      console.log('Verification email resent successfully to:', email);
     } catch (err) {
       setLocalError(err.message);
-      console.error('Error resending verification email:', err);
     } finally {
       setLoading(false);
     }
